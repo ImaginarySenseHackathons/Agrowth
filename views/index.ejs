@@ -1,0 +1,74 @@
+<!doctype html>
+<html  lang="en">
+
+<head>
+ <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+
+  <title>AgroController</title> 
+</head>
+    <body>
+ <!-- Begin NavBar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#"><img src="img/agrowth.png" height="30" alt=""></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+   </ul>
+   <ul class="navbar-nav">
+      <li class="nav-item">
+        <button class="btn btn-outline-info" type="button">Average: <%= avg %></button>
+      </li>
+   </ul>   
+  </div>
+</nav>
+ <!-- End NavBar -->
+ 
+ <!-- Wide Cards 1-->
+ <div class="container pt-5">
+    <div class="row">
+<% for(var i=0; i < data.length; i++) { %>
+  <div class="col-md-4">
+      <% if (data[i].sensor.value) { %>
+        <div class="card mb-4 text-white bg-dark shadow-sm">
+      <% } else {%>
+        <div class="card mb-4 shadow-sm">
+      <% } %>
+          <div class="card-body">
+            <p class="card-text">Sensor <%= data[i].sensor.index+1 %></p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button type="button" class="btn btn-sm <% if (data[i].sensor.value) { %> btn-secondary text-white <% } %> btn-outline-secondary" onclick="location.href='/updateSensor?sensor=<%= data[i].sensor.index %>&status=1'">Enable</button>
+                <button type="button" class="btn btn-sm <% if (!data[i].sensor.value) { %> btn-secondary text-white <% } %> btn-outline-secondary" onclick="location.href='/updateSensor?sensor=<%= data[i].sensor.index %>&status=0'">Disable</button>
+              </div>
+              <% if (data[i].sensor.value) { %>
+              <div>
+                 <button type="button" class="btn btn-sm btn-info text-right"><%= data[i].sensor.value %></button>
+              </div>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+  <% } %>
+    </div>
+  </div>
+<!--Begin Script-->
+  <script src="js/jquery-3.3.1.slim.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/Chart.bundle.js"></script>
+</script>
+<!--End Script-->
+    </body>
+</html>
